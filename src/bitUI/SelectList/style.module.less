@@ -1,0 +1,67 @@
+.selectListPc {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: rgba(39, 53, 77, 0.5);
+  }
+  &::-webkit-scrollbar-track {
+    background-color: unset;
+    border-radius: 6px;
+  }
+  :global {
+    padding: 10px 0;
+    width: 240px;
+    color: #81a0cb;
+    white-space: nowrap;
+    border: none;
+    line-height: 2em;
+    -webkit-user-select: none;
+    user-select: none;
+    outline: none;
+    background: #161f2c;
+    box-shadow: 0 5px 10px 0 rgb(0 0 0 / 20%);
+    border-radius: 10px;
+    z-index: 11;
+    max-height: 300px;
+    overflow: auto;
+
+    .item {
+      transform: perspective(1px) translateZ(0);
+      position: relative;
+      padding: 0 10px 0 0.18rem;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      .inner {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      &:hover {
+        color: #fff;
+      }
+      &.cur {
+        color: #fff;
+        &:before {
+          content: '';
+          position: absolute;
+          z-index: 2;
+          left: 0;
+          top: 5%;
+          height: 80%;
+          bottom: 0;
+          background: #02996a;
+          width: 4px;
+          transition-property: all;
+          transition-duration: 0.15s;
+          transition-timing-function: ease-out;
+        }
+      }
+    }
+  }
+}

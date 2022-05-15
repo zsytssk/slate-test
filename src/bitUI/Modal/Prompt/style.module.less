@@ -1,0 +1,102 @@
+@import '@ui/Button/index.less';
+
+.closeVerify {
+  :global {
+    .bc-modal-container {
+      width: 4.48rem;
+      background-color: #283c56;
+      padding: 0.24rem 0.24rem 0.3rem;
+      font-size: 0.16rem;
+      color: #81a0cb;
+    }
+    .close {
+      position: absolute;
+      right: 0;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 0.5rem;
+      height: 0.5rem;
+      cursor: pointer;
+      svg {
+        color: #81a0cb;
+        width: 0.2rem;
+      }
+    }
+    .header {
+      text-align: center;
+      font-size: 22px;
+      color: #81a0cb;
+      font-weight: bold;
+    }
+    .tip {
+      // height: 152px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .bottom {
+      display: flex;
+      justify-content: center;
+      button {
+        .linear-button(#02996a);
+        height: 45px;
+        font-size: 18px;
+        min-width: 160px;
+        padding: 0 20px;
+        border-radius: 4px;
+      }
+
+      .anchor {
+        cursor: pointer;
+        height: 45px;
+        line-height: 45px;
+        min-width: 160px;
+        padding: 0 20px;
+        text-align: center;
+        font-size: 18px;
+        color: #fff;
+        text-decoration: underline;
+        margin-left: 40px;
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      .bc-modal-container {
+        width: 6.5rem;
+        font-size: 0.26rem;
+        .header {
+          font-size: 0.3rem;
+        }
+        .tip {
+          font-size: 0.28rem;
+        }
+        .bottom {
+          margin-top: 0.2rem;
+          button,
+          .anchor {
+            font-size: 0.26rem;
+            height: 0.7rem;
+            line-height: 0.7rem;
+            flex: 1;
+            box-sizing: border-box;
+
+            &:not(:last-child) {
+              margin-right: 0.4rem;
+            }
+            border-radius: 0.06rem;
+          }
+
+          .anchor {
+            background-color: #617da3;
+            color: #fff;
+            text-decoration: none;
+            margin-left: 0.4rem;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+@import './index.less';
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  :global {
+    svg {
+      display: none;
+      margin-right: 10px;
+      :local {
+        -webkit-animation: loadingCircle 1s linear infinite;
+        animation: loadingCircle 1s linear infinite;
+      }
+    }
+  }
+  &:global(.loading) {
+    :global {
+      svg {
+        display: block;
+      }
+    }
+  }
+}
+
+@keyframes loadingCircle {
+  to {
+    transform: rotate(1turn);
+  }
+}

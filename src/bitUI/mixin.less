@@ -1,0 +1,165 @@
+@import './var.less';
+
+/* 已1200px作等比缩放 */
+// .sc-md(@val) {
+//   @result: if(ispixel(@val), (@val / 1200) * @md, @val);
+// }
+.minus(@px, @t) {
+  @result: if(ispixel(@px), @px * @t, @px);
+}
+.pxMinus(@rules, @t) {
+  each(@rules, {
+    @{key}: .minus(@value, @t)[];
+  });
+}
+
+.media-mobile(@rules) {
+  @media only screen and (max-width: 768px) {
+    @rules();
+  }
+}
+
+/* 响应式加媒体查询 */
+.media-xs(@rules) {
+  @rules();
+}
+.media-sm(@rules) {
+  @media only screen and (min-width: 576px) {
+    @rules();
+  }
+}
+.media-md(@rules) {
+  @media only screen and (min-width: 768px) {
+    @rules();
+  }
+}
+.media-lg(@rules) {
+  @media only screen and (min-width: 992px) {
+    @rules();
+  }
+}
+.media-xl(@rules) {
+  @media only screen and (min-width: 1200px) {
+    @rules();
+  }
+}
+.media-xxl(@rules) {
+  @media only screen and (min-width: 1600px) {
+    @rules();
+  }
+}
+
+.media-auto(@rules) {
+  @media screen and (min-width: @xxl) {
+    each(@rules, {
+      @{key}: .sc-xxl(@value)[];
+    });
+  }
+  @media screen and (min-width: (@xl + 1px)) and (max-width: (@xxl - 1px)) {
+    @rules();
+  }
+  @media screen and (min-width: (@md + 1px)) and (max-width: (@xl - 1px)) {
+    each(@rules, {
+      @{key}: .sc-md(@value)[];
+    });
+  }
+}
+
+@vw_base: @md;
+.vw(@px) {
+  @result: if(ispixel(@px), (unit(@px) / @vw_base) * 100vw, @px);
+}
+
+/* px转vw */
+.px2vw(@rules) {
+  each(@rules, {
+    @{key}: .vw(@value)[];
+  });
+}
+
+.auto-vw(@rules) {
+  @media screen and (min-width: (@md + 1px)) and (max-width: (@xl - 1px)) {
+    .pxMinus(@rules, 0.625);
+  }
+  .media-mobile(.px2rem(@rules));
+}
+
+.toRem(@px) {
+  @result: if(ispixel(@px), (unit(@px) / 100) * 1rem, @px);
+}
+
+/* px转rem */
+.px2rem(@rules) {
+  each(@rules, {
+    @{key}: .toRem(@value)[];
+  });
+}
+
+.media-sm-rem(@rules) {
+  .media-sm(.px2rem(@rules));
+}
+
+/* 仅对sm转换vw */
+.media-sm-vw(@rules) {
+  .media-sm(.px2vw(@rules));
+}
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.fixInputAutoFill {
+  -webkit-transition: color 99999s ease-out, background-color 99999s ease-out;
+}
+
+/* 1px */
+.border-top-1px(@color) {
+  position: relative;
+  &::before {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid @color;
+    content: '';
+  }
+}
+
+.border-bot-1px(@color) {
+  position: relative;
+  &::after {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid @color;
+    content: '';
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5) {
+  .border-top-1px::before,
+  .border-bot-1px::after {
+    -webkit-transform: scaleY(0.66666);
+    transform: scaleY(0.66666);
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-device-pixel-ratio: 2) {
+  .border-top-1px::before,
+  .border-bot-1px::after {
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+  }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+  .border-top-1px::before,
+  .border-bot-1px::after {
+    -webkit-transform: scaleY(0.33333);
+    transform: scaleY(0.33333);
+  }
+}

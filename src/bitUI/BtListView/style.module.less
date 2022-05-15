@@ -1,0 +1,63 @@
+.btListViewWrap {
+  :global {
+    .btPagination {
+      justify-content: center;
+    }
+  }
+}
+
+.btListView {
+  &:global(.bit-list-view-empty) {
+    :global {
+      .mining-empty {
+        min-height: calc(100vh - 0.9rem - 0.8rem - 0.7rem - 1.2rem);
+        padding: 0;
+      }
+    }
+  }
+  :global {
+    .loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        width: 40px;
+        height: 40px;
+        :local {
+          animation-name: loadingSvg;
+          animation-duration: 1s;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+        }
+
+        @media only screen and (max-width: 767px) {
+          width: 0.6rem;
+          height: 0.6rem;
+        }
+      }
+    }
+    .end {
+      background-color: #202c3c;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      font-size: 16px;
+      color: #7286a6;
+      @media only screen and (max-width: 767px) {
+        font-size: 0.24rem;
+        height: 0.6rem;
+        line-height: 0.6rem;
+      }
+    }
+  }
+}
+
+@keyframes loadingSvg {
+  from {
+    transform: rotateZ(0);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}

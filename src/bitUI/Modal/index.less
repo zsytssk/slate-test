@@ -1,0 +1,117 @@
+.bc-modal-root {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    overflow: hidden;
+    z-index: 1001;
+}
+.bc-modal-mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    // backdrop-filter: blur(2px);
+}
+
+.bc-modal-container {
+    // max-width: 94%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: top center;
+    transform: translate(-50%, -50%);
+    // border-radius: 10px;
+
+    &.hide {
+        transform: translateY(100%);
+    }
+
+    /* > div {
+    max-height: 100vh;
+    overflow: auto;
+  } */
+}
+
+.btg__modal_scale {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+    &-enter {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    &-enter-active {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        transition: all 0.3s 0.1s;
+    }
+
+    &-exit {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    &-exit-active {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+        transition: all 0.3s;
+    }
+    &-exit-done {
+        display: none;
+    }
+}
+
+.btg__modal_slide {
+    &-enter {
+        opacity: 0;
+        transform: translate(-50%, -50%);
+    }
+    &-enter-active {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+        transition: all 300ms;
+    }
+
+    &-exit {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+    &-exit-active {
+        opacity: 0;
+        transform: translate(-50%, -50%);
+        transition: all 300ms;
+    }
+    &-exit-done {
+        display: none;
+    }
+}
+
+.bc-modal-container {
+    &.bottom_slide_up {
+        &-enter {
+            opacity: 0;
+            transform: translate(0, 100%);
+        }
+        &-enter-done,
+        &-enter-active {
+            opacity: 1;
+            transform: translate(0, 0);
+            transition: all 300ms;
+        }
+
+        &-exit {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+        &-exit-done,
+        &-exit-active {
+            opacity: 0;
+            transform: translate(0, 100%);
+            transition: all 300ms;
+        }
+    }
+}

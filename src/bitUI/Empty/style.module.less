@@ -1,0 +1,27 @@
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 100px 0;
+
+  svg {
+    width: 100px;
+  }
+
+  :global {
+    .tip {
+      font-size: 14px;
+      color: #7286a6;
+    }
+
+    @media screen and (max-width: 767px) {
+      svg {
+        width: 2rem;
+      }
+      .tip {
+        font-size: 0.24rem;
+      }
+    }
+  }
+}

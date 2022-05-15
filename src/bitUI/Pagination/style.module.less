@@ -1,0 +1,53 @@
+:global {
+  .btPagination {
+    font-size: 0.14rem;
+    display: flex;
+    & > div {
+      height: 0.3rem;
+      line-height: 0.3rem;
+      padding: 0 0.07rem;
+      border: 1px solid #263244;
+      cursor: pointer;
+      border-radius: 3px;
+      user-select: none;
+      min-width: 0.28rem;
+      text-align: center;
+      box-sizing: border-box;
+      &.disabled {
+        cursor: none;
+      }
+      &.cur {
+        background-color: #02996a;
+        border-color: #02996a;
+        color: #fff;
+      }
+      &:not(:first-child) {
+        margin-left: 0.1rem;
+      }
+      &.prev,
+      &.next {
+        border-color: transparent;
+        svg {
+          width: 10px;
+          height: 11px;
+        }
+      }
+      &.prev {
+        svg {
+          transform: rotate(180deg);
+          transform-origin: 50% 50%;
+        }
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      & > div {
+        height: 0.5rem;
+        line-height: 0.5rem;
+        padding: 0 0.2rem;
+        min-width: 0.5rem;
+        font-size: 0.26rem;
+      }
+    }
+  }
+}

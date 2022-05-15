@@ -1,0 +1,72 @@
+@import '../var.less';
+
+.button() {
+  display: inline-block;
+  text-decoration: none;
+  border: none;
+  outline: none;
+  white-space: nowrap;
+  text-align: center;
+  cursor: pointer;
+  vertical-align: middle;
+  font-size: 1em;
+  border-radius: 0.04rem;
+  padding: 0 1.3em;
+  line-height: 2.25em;
+  transition: transform 0.15s ease-in-out, background 0.3s ease-in-out;
+  &:active {
+    transform: scale(0.96, 0.96);
+  }
+  &[disabled],
+  &.disabled {
+    cursor: not-allowed;
+  }
+}
+
+/* 纯色按钮 */
+.pure-button(@bg) {
+  .button();
+  color: #ffffff;
+  background: @bg;
+
+  transition-property: all;
+  transition-duration: 0.15s;
+  transition-timing-function: ease-out;
+  &:hover {
+    background: lighten(@bg, 15%);
+  }
+  &[disabled],
+  &.disabled {
+    color: lighten(@bg, 75%);
+    background: desaturate(@bg, 7%);
+    text-shadow: 0px 1px 0px desaturate(@bg, 10%);
+  }
+}
+
+/* 渐变按钮 */
+.linear-button(@bg ) {
+  .button();
+  color: #ffffff;
+  background-image: linear-gradient(180deg, #05c9a3 0%, @bg 100%);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  &:hover {
+    background-image: linear-gradient(180deg, lighten(@bg, 12%) 0%, lighten(@bg, 2%) 100%);
+  }
+  &[disabled],
+  &.disabled {
+    color: lighten(@bg, 75%);
+    background-image: linear-gradient(180deg, desaturate(@bg, 10%) 0%, @bg 100%);
+    text-shadow: 0px 1px 0px desaturate(@bg, 10%);
+  }
+}
+/* 渐变按钮 */
+.linear-button2(@startBg) {
+  .linear-button(@startBg );
+
+  &[disabled],
+  &.disabled {
+    color: lighten(@startBg, 75%);
+    background-image: none;
+    background-color: lighten(@startBg, 15%);
+  }
+}
