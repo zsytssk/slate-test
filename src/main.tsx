@@ -1,9 +1,9 @@
+import 'antd/dist/antd.css';
 import ReactDom from 'react-dom/client';
 
 import App from './App';
 
-const root = ReactDom.createRoot(
-    document.getElementById('root') as HTMLElement,
-);
+const dom = document.getElementById('root');
+const root = ReactDom.createRoot(dom as HTMLDivElement);
 
 root.render(<App />);
