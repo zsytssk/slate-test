@@ -1,17 +1,9 @@
-import { Button, Modal } from 'antd';
-import { useState } from 'react';
-
-import './index.module.less';
+import { Button } from 'antd';
 
 export default function App() {
-    const [visible, setVisible] = useState(false);
-
     return (
         <div>
-            <Button onClick={() => setVisible(true)}>open</Button>
-            <Modal visible={visible} onCancel={() => setVisible(false)}>
-                this is a test
-            </Modal>
+            <Button onClick={() => alert('hello world')}>click</Button>
         </div>
     );
 }
