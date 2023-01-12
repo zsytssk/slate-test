@@ -1,0 +1,38 @@
+.customTextareaWrap {
+    position: relative;
+    box-sizing: content-box;
+    padding: 5px 3px 18px 11px;
+    border: 1px solid #d4d4d4;
+    &:global(.disabled) {
+        background-color: rgb(245, 245, 245);
+    }
+    &:global(.focused) {
+        border-color: var(--ant-primary-color-hover);
+    }
+    :global {
+        .inner {
+            height: 100px;
+            overflow: auto;
+            line-height: 1.5;
+            word-break: break-all;
+        }
+        .ant-tag {
+            z-index: 0;
+            margin: 0 3px;
+        }
+        .mention-selected {
+            .ant-tag {
+                border-color: var(--ant-primary-color-hover);
+            }
+        }
+        .maxLength {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            padding: 0 5px;
+            color: #999;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+    }
+}
