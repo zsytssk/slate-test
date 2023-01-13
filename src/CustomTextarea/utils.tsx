@@ -1,3 +1,4 @@
+import React from 'react';
 import { Tag } from 'antd';
 import { BaseEditor, BaseNode, Editor, Transforms } from 'slate';
 import { useFocused, useSelected } from 'slate-react';
@@ -158,15 +159,6 @@ export function clearContent(editor: BaseEditor) {
 }
 
 export function strToEditorValue(str: string) {
-    if (!str) {
-        return [
-            {
-                type: 'paragraph',
-                children: [{ text: '' }],
-            },
-        ];
-    }
-
     const regex = /(\$\{[^\}]+\})/;
     const textArray = str.split(regex);
 
@@ -182,7 +174,6 @@ export function strToEditorValue(str: string) {
             children.push({ text: item });
         }
     }
-
     return [
         {
             type: 'paragraph',

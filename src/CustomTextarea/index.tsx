@@ -2,23 +2,26 @@ import classNames from 'classnames';
 import React, {
     useCallback,
     useEffect,
+    useImperativeHandle,
     useMemo,
     useRef,
     useState,
 } from 'react';
-import { Descendant, createEditor } from 'slate';
+import { createEditor, Descendant, Transforms } from 'slate';
 import { withHistory } from 'slate-history';
 import { Editable, ReactEditor, Slate, withReact } from 'slate-react';
 
 import { useDebounce } from './hooks';
-import styles from './index.module.less';
-import { Element } from './outer';
 import {
+    Element,
     getEditorString,
+    insertMention,
     strToEditorValue,
     withMentions,
     withTextLimit,
 } from './utils';
+
+import styles from './index.module.less';
 
 export type CustomTextareaCtrlRef = {
     insertTag: (text: string) => void;
@@ -43,22 +46,28 @@ export function CustomTextarea({
     ctrlRef,
 }: Props) {
     const [stateId, setStateId] = useState(0);
-    const [editorValue, setEditorValue] = useState<Descendant[]>([]);
-    const textRef = useRef<string>();
+    const [editorValue, setEditorValue] = useState<Descendant[]>([
+        {
+            // @ts-ignore
+            type: 'paragraph',
+            children: [{ text: '' }],
+        },
+    ]);
+    const textRef = useRef('');
     const editor = useMemo(
         () =>
             withReact(
                 withHistory(
                     withTextLimit(maxLength)(
-                        withMentions(createEditor()),
-                    ) as ReactEditor,
-                ),
+                        withMentions(createEditor())
+                    ) as ReactEditor
+                )
             ),
-        [maxLength],
+        [maxLength]
     );
     const renderElement = useCallback(
         (props: any) => <Element {...props} />,
-        [],
+        []
     );
 
     const onPaste = useCallback(
@@ -70,7 +79,7 @@ export function CustomTextarea({
                 event.preventDefault();
             }
         },
-        [maxLength, editor],
+        [maxLength, editor]
     );
 
     const onLocalChange = useDebounce((newEditorValue) => {
@@ -81,12 +90,6 @@ export function CustomTextarea({
 
         textRef.current = newStr;
         onChange(newStr);
-        console.log(`test:>onLocalChange`, newStr);
-        if (newStr === '') {
-            const newState = strToEditorValue(newStr) as Descendant[];
-            setEditorValue(newState);
-            return;
-        }
         setEditorValue(newEditorValue);
     }, 30);
 
@@ -97,9 +100,29 @@ export function CustomTextarea({
         textRef.current = value;
         const newEditorValue = strToEditorValue(value) as Descendant[];
         setEditorValue(newEditorValue);
-        console.log(`test:>`, newEditorValue);
         setStateId((old) => old + 1);
     }, [value]);
+
+    useImperativeHandle(
+        ctrlRef,
+        () => {
+            return {
+                insertTag: (str: string | number) => {
+                    insertMention(editor, str);
+                    Promise.resolve().then(() => {
+                        if (editor.selection) {
+                            const previousSelection = Object.assign(
+                                {},
+                                editor.selection
+                            );
+                            Transforms.select(editor, previousSelection);
+                        }
+                    });
+                },
+            };
+        },
+        [editor]
+    );
 
     return (
         <div
@@ -125,7 +148,7 @@ export function CustomTextarea({
             </div>
             {maxLength ? (
                 <div className="maxLength">
-                    {textRef.current?.length || 0}/{maxLength}
+                    {textRef.current.length}/{maxLength}
                 </div>
             ) : null}
         </div>

@@ -17,10 +17,10 @@ export default function App() {
                     value={value}
                     onChange={(val) => setValue(val)}
                 />
-                <RulesTextEditor
+                {/* <RulesTextEditor
                     value={value}
                     onChange={(val) => setValue(val)}
-                />
+                /> */}
             </div>
         </div>
     );
