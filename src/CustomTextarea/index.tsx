@@ -7,11 +7,12 @@ import React, {
     useRef,
     useState,
 } from 'react';
-import { createEditor, Descendant, Transforms } from 'slate';
+import { Descendant, Transforms, createEditor } from 'slate';
 import { withHistory } from 'slate-history';
 import { Editable, ReactEditor, Slate, withReact } from 'slate-react';
 
 import { useDebounce } from './hooks';
+import styles from './index.module.less';
 import {
     Element,
     getEditorString,
@@ -20,8 +21,6 @@ import {
     withMentions,
     withTextLimit,
 } from './utils';
-
-import styles from './index.module.less';
 
 export type CustomTextareaCtrlRef = {
     insertTag: (text: string) => void;
@@ -59,15 +58,15 @@ export function CustomTextarea({
             withReact(
                 withHistory(
                     withTextLimit(maxLength)(
-                        withMentions(createEditor())
-                    ) as ReactEditor
-                )
+                        withMentions(createEditor()),
+                    ) as ReactEditor,
+                ),
             ),
-        [maxLength]
+        [maxLength],
     );
     const renderElement = useCallback(
         (props: any) => <Element {...props} />,
-        []
+        [],
     );
 
     const onPaste = useCallback(
@@ -79,7 +78,7 @@ export function CustomTextarea({
                 event.preventDefault();
             }
         },
-        [maxLength, editor]
+        [maxLength, editor],
     );
 
     const onLocalChange = useDebounce((newEditorValue) => {
@@ -102,27 +101,6 @@ export function CustomTextarea({
         setEditorValue(newEditorValue);
         setStateId((old) => old + 1);
     }, [value]);
-
-    useImperativeHandle(
-        ctrlRef,
-        () => {
-            return {
-                insertTag: (str: string | number) => {
-                    insertMention(editor, str);
-                    Promise.resolve().then(() => {
-                        if (editor.selection) {
-                            const previousSelection = Object.assign(
-                                {},
-                                editor.selection
-                            );
-                            Transforms.select(editor, previousSelection);
-                        }
-                    });
-                },
-            };
-        },
-        [editor]
-    );
 
     return (
         <div

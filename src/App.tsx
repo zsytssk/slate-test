@@ -14,6 +14,7 @@ export default function App() {
         <div>
             <div className="wrap" style={{ margin: '100px 0 0 100px' }}>
                 <CustomTextarea
+                    placeholder="this is a placeholder"
                     value={value}
                     onChange={(val) => setValue(val)}
                 />
